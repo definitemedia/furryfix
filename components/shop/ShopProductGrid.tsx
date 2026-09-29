@@ -13,7 +13,7 @@ export default function ShopProductGrid() {
           The FurryFix Range
         </h2>
 
-        <ul className="mx-auto mt-10 grid max-w-sm grid-cols-1 gap-5 sm:max-w-none sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <ul className="mx-auto mt-10 grid max-w-sm grid-cols-1 gap-5 min-[520px]:max-w-none min-[520px]:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {products.map((product, index) => (
             <li
               key={product.slug}

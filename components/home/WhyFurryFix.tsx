@@ -175,7 +175,7 @@ export default function WhyFurryFix() {
           </div>
           <a
             href="#product"
-            className="self-start text-sm font-semibold text-turquoise underline decoration-turquoise/40 underline-offset-4 transition-colors hover:text-turquoise-hover hover:decoration-turquoise-hover focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-turquoise motion-reduce:transition-none sm:mb-2 sm:self-auto"
+            className="-my-3 inline-flex min-h-11 items-center self-start text-sm font-semibold text-turquoise underline decoration-turquoise/40 underline-offset-4 transition-colors hover:text-turquoise-hover hover:decoration-turquoise-hover focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-turquoise motion-reduce:transition-none sm:-mb-1 sm:self-auto"
           >
             Explore our products
           </a>

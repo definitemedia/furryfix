@@ -51,7 +51,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <li>
                 <Link
                   href="/shop"
-                  className="inline-flex min-h-11 items-center rounded-md underline-offset-4 hover:text-navy hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise"
+                  className="-mr-2.5 inline-flex min-h-11 min-w-11 items-center rounded-md underline-offset-4 hover:text-navy hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise"
                 >
                   Shop
                 </Link>

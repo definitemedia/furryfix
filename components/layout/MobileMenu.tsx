@@ -61,11 +61,16 @@ export default function MobileMenu({ id, open, onClose, pathname, amazonUrl, pro
   }, [open, onClose]);
 
   return (
-    <div className={`fixed inset-0 z-[60] lg:hidden ${open ? "visible" : "invisible"}`} inert={!open}>
+    <div
+      className={`fixed inset-0 z-[60] overflow-hidden transition-[visibility] duration-300 motion-reduce:transition-none lg:hidden ${
+        open ? "visible" : "invisible"
+      }`}
+      inert={!open}
+    >
       <div
         aria-hidden="true"
         onClick={onClose}
-        className={`absolute inset-0 bg-navy/40 transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 bg-navy/40 transition-opacity duration-200 motion-reduce:transition-none ${open ? "opacity-100" : "opacity-0"}`}
       />
 
       <div

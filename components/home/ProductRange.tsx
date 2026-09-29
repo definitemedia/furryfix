@@ -18,7 +18,7 @@ export default function ProductRange() {
           </p>
         </div>
 
-        <ul className="mx-auto mt-10 grid max-w-sm grid-cols-1 gap-5 sm:mt-12 sm:max-w-none sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <ul className="mx-auto mt-10 grid max-w-sm grid-cols-1 gap-5 min-[520px]:max-w-none min-[520px]:grid-cols-2 sm:mt-12 lg:grid-cols-4 lg:gap-6">
           {products.map((product) => (
             <li key={product.slug}>
               <ProductCard product={product} imageSrc={publicAsset(product.images)} />

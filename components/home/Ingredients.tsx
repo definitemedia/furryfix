@@ -6,7 +6,7 @@ function IngredientItem({ ingredient }: { ingredient: Ingredient }) {
   const imageSrc = publicAsset([ingredient.image.src]);
 
   return (
-    <figure className="flex w-[84px] flex-col items-center text-center sm:w-[96px]" title={ingredient.description}>
+    <figure className="relative flex w-[84px] flex-col items-center text-center sm:w-[96px]" title={ingredient.description}>
       <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-white sm:h-[84px] sm:w-[84px]">
         {imageSrc ? (
           <Image
@@ -52,7 +52,7 @@ export default function Ingredients() {
           </p>
           <a
             href="#product"
-            className="mt-1.5 inline-block text-xs font-semibold text-turquoise-hover underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise"
+            className="-mt-2 -mb-3.5 inline-flex min-h-11 items-center text-xs font-semibold text-turquoise-hover underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise"
           >
             Explore Our Products &rarr;
           </a>
@@ -62,9 +62,9 @@ export default function Ingredients() {
           role="region"
           aria-label="Featured botanical ingredients"
           tabIndex={0}
-          className="-mx-5 min-w-0 overflow-x-auto overscroll-x-contain [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise sm:-mx-8 lg:mx-0 lg:flex-1 [&::-webkit-scrollbar]:hidden"
+          className="relative -mx-5 min-w-0 overflow-x-auto overscroll-x-contain [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise sm:-mx-8 lg:mx-0 lg:flex-1 [&::-webkit-scrollbar]:hidden"
         >
-          <ul className="flex w-max min-w-full justify-between gap-4 px-5 py-1 sm:gap-6 sm:px-8 lg:px-0">
+          <ul className="flex flex-wrap justify-center gap-x-3 gap-y-4 px-5 py-1 sm:w-max sm:min-w-full sm:flex-nowrap sm:justify-between sm:gap-6 sm:px-8 lg:px-0">
             {ingredients.map((ingredient) => (
               <li key={ingredient.slug} className="shrink-0">
                 <IngredientItem ingredient={ingredient} />

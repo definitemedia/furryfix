@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   title: "FurryFix | Better Care For Every Pet",
   description:
     "Thoughtful grooming care for happier, healthier-looking coats. Discover FurryFix Shed Control 2-in-1 Conditioning Shampoo.",
+  icons: {
+    icon: [{ url: "/brand/favicon.png", type: "image/png", sizes: "500x500" }],
+    apple: "/brand/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

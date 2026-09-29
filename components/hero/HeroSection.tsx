@@ -33,7 +33,7 @@ const dogs: Dog[] = [
     label: "Gentle Rinse",
     slot: "w-[19%] sm:w-[17%]",
     layer: "z-0",
-    labelLift: "mb-[8vw] sm:mb-2",
+    labelLift: "mb-[8vw] self-start sm:mb-10 sm:self-center lg:mb-2",
     delay: "motion-safe:[animation-delay:0.15s]",
   },
   {
@@ -55,7 +55,7 @@ const dogs: Dog[] = [
     label: "Deep Clean",
     slot: "w-[24%] sm:w-[23%] -ml-[3%]",
     layer: "z-20",
-    labelLift: "mb-1 sm:mb-2",
+    labelLift: "mb-[11vw] min-[360px]:mb-1 sm:mb-2",
     delay: "motion-safe:[animation-delay:0s]",
   },
   {
@@ -77,7 +77,7 @@ const dogs: Dog[] = [
     label: "Happy Bath Time",
     slot: "w-[20%] sm:w-[19%] -ml-[3%]",
     layer: "z-0",
-    labelLift: "mb-[6vw] sm:mb-2",
+    labelLift: "mb-[6vw] self-end sm:mb-10 sm:self-center lg:mb-2",
     delay: "motion-safe:[animation-delay:0.15s]",
   },
 ];
@@ -104,7 +104,7 @@ function DogColumn({ dog, index }: { dog: Dog; index: number }) {
         style={{ animationDelay: `${index * 0.8}s` }}
       >
         <span
-          className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-turquoise/25 bg-white/95 px-2 py-1 text-[0.66rem] font-semibold leading-none text-navy shadow-[0_6px_18px_color-mix(in_srgb,var(--color-navy)_10%,transparent)] sm:px-3 sm:py-1.5 sm:text-xs lg:text-[0.8rem] ${rise} motion-safe:[animation-delay:0.6s]`}
+          className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full border border-turquoise/25 bg-white/95 px-2 py-1 sm:gap-1.5 text-[0.66rem] font-semibold leading-none text-navy shadow-[0_6px_18px_color-mix(in_srgb,var(--color-navy)_10%,transparent)] sm:px-3 sm:py-1.5 sm:text-xs lg:text-[0.8rem] ${rise} motion-safe:[animation-delay:0.6s]`}
         >
           <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-turquoise" />
           {dog.label}
