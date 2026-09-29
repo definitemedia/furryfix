@@ -1,5 +1,6 @@
+import Link from "next/link";
 import AmazonButton from "@/components/layout/AmazonButton";
-import { isAmazonProductUrl, type Product } from "@/lib/products";
+import { isAmazonProductUrl, productHref, type Product } from "@/lib/products";
 
 type ProductCardProps = {
   product: Product;
@@ -57,6 +58,7 @@ function ProductVisual({ product, imageSrc }: ProductCardProps) {
 export default function ProductCard({ product, imageSrc }: ProductCardProps) {
   const available = product.status === "available";
   const amazonUrl = isAmazonProductUrl(product.amazonUrl) ? product.amazonUrl : null;
+  const href = productHref(product);
 
   return (
     <article
@@ -67,7 +69,13 @@ export default function ProductCard({ product, imageSrc }: ProductCardProps) {
       }`}
     >
       <div className="relative aspect-square w-full overflow-hidden rounded-xl">
-        <ProductVisual product={product} imageSrc={imageSrc} />
+        {href ? (
+          <Link href={href} tabIndex={-1} aria-hidden="true" className="block h-full w-full">
+            <ProductVisual product={product} imageSrc={imageSrc} />
+          </Link>
+        ) : (
+          <ProductVisual product={product} imageSrc={imageSrc} />
+        )}
         <p
           className={`absolute left-2.5 top-2.5 z-10 inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-semibold shadow-sm ${
             available ? "text-turquoise-hover" : "text-navy/75"
@@ -82,7 +90,18 @@ export default function ProductCard({ product, imageSrc }: ProductCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col px-2.5 pb-2.5 pt-4">
-        <h3 className="text-base font-bold leading-6 text-navy">{product.name}</h3>
+        <h3 className="text-base font-bold leading-6 text-navy">
+          {href ? (
+            <Link
+              href={href}
+              className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise"
+            >
+              {product.name}
+            </Link>
+          ) : (
+            product.name
+          )}
+        </h3>
         {product.size ? (
           <p className="mt-1 text-sm font-medium text-secondary">{product.size}</p>
         ) : null}

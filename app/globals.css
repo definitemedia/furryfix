@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source not "../.tmp-hero";
 
 /* FurryFix official brand palette. Components should use the Tailwind
    utilities generated in @theme below, never raw hex values. */
@@ -131,6 +132,11 @@ body {
 
 .hero-float {
   animation: hero-float 6.5s ease-in-out infinite;
+}
+
+.reviews-marquee-fade {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
 }
 
 @media (prefers-reduced-motion: no-preference) {

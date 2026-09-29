@@ -1,23 +1,90 @@
 import Image from "next/image";
-import { featuredAmazonUrl } from "@/lib/products";
 import { exploreHref } from "@/lib/site";
-
-const fadeIn =
-  "transition-opacity duration-700 ease-out starting:opacity-0 motion-reduce:transition-none";
-
-const float = "motion-safe:animate-[hero-float_6.5s_ease-in-out_infinite]";
-
-const softShadow = "shadow-[0_14px_36px_color-mix(in_srgb,var(--color-navy)_14%,transparent)]";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-turquoise";
 
-const pill =
-  "inline-flex h-12 min-w-[44px] items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition-colors duration-200";
+const rise =
+  "motion-safe:animate-[hero-rise_0.9s_cubic-bezier(0.22,1,0.36,1)_both]";
 
-function ArrowIcon({ className = "h-4 w-4" }: { className?: string }) {
+const float = "motion-safe:animate-[hero-float_6.5s_ease-in-out_infinite]";
+
+type Dog = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  label: string;
+  /** Column width as a share of the row, plus overlap with neighbours. */
+  slot: string;
+  /** Stacking order of the photo; labels always sit above every photo. */
+  layer: string;
+  /** Extra lift for the label on narrow screens so neighbouring labels never collide. */
+  labelLift: string;
+  delay: string;
+};
+
+const dogs: Dog[] = [
+  {
+    src: "/hero/bath-row-chihuahua.webp",
+    width: 640,
+    height: 820,
+    alt: "A fawn Chihuahua with a red collar looking toward the camera",
+    label: "Gentle Rinse",
+    slot: "w-[19%] sm:w-[17%]",
+    layer: "z-0",
+    labelLift: "mb-[8vw] sm:mb-2",
+    delay: "motion-safe:[animation-delay:0.15s]",
+  },
+  {
+    src: "/hero/bath-row-jack-russell.webp",
+    width: 640,
+    height: 729,
+    alt: "A Jack Russell terrier puppy with tan ears looking at the camera",
+    label: "Shampoo & Lather",
+    slot: "w-[20%] sm:w-[19%] -ml-[3%]",
+    layer: "z-10",
+    labelLift: "mb-1 sm:mb-2",
+    delay: "motion-safe:[animation-delay:0.3s]",
+  },
+  {
+    src: "/hero/bath-row-golden.webp",
+    width: 640,
+    height: 805,
+    alt: "A golden retriever smiling with its tongue out",
+    label: "Deep Clean",
+    slot: "w-[24%] sm:w-[23%] -ml-[3%]",
+    layer: "z-20",
+    labelLift: "mb-1 sm:mb-2",
+    delay: "motion-safe:[animation-delay:0s]",
+  },
+  {
+    src: "/hero/bath-row-pug.webp",
+    width: 640,
+    height: 619,
+    alt: "A black pug wearing a knitted grey scarf",
+    label: "Fresh & Fluffy",
+    slot: "w-[22%] sm:w-[21%] -ml-[3%]",
+    layer: "z-10",
+    labelLift: "mb-1 sm:mb-2",
+    delay: "motion-safe:[animation-delay:0.3s]",
+  },
+  {
+    src: "/hero/bath-row-samoyed.webp",
+    width: 640,
+    height: 744,
+    alt: "A fluffy white Samoyed smiling at the camera",
+    label: "Happy Bath Time",
+    slot: "w-[20%] sm:w-[19%] -ml-[3%]",
+    layer: "z-0",
+    labelLift: "mb-[6vw] sm:mb-2",
+    delay: "motion-safe:[animation-delay:0.15s]",
+  },
+];
+
+function ArrowIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none">
       <path
         d="M5 12h14M13 6l6 6-6 6"
         stroke="currentColor"
@@ -29,165 +96,76 @@ function ArrowIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-function ArrowLink({ label }: { label: string }) {
+function DogColumn({ dog, index }: { dog: Dog; index: number }) {
   return (
-    <a
-      href={exploreHref}
-      aria-label={label}
-      className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-white transition-colors duration-200 hover:bg-turquoise ${focusRing}`}
-    >
-      <ArrowIcon className="h-4 w-4 -rotate-45" />
-    </a>
-  );
-}
-
-type SideCardProps = {
-  src: string;
-  alt: string;
-  label: string;
-  linkLabel: string;
-  className?: string;
-};
-
-function SideCard({ src, alt, label, linkLabel, className = "" }: SideCardProps) {
-  return (
-    <div className={`rounded-[22px] bg-white p-2.5 ${softShadow} ${className}`}>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[16px] bg-lavender">
-        <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 200px, 45vw" className="object-cover" />
-      </div>
-      <div className="flex items-center justify-between gap-2 px-1.5 pb-0.5 pt-2.5">
-        <p className="text-sm font-semibold text-navy">{label}</p>
-        <ArrowLink label={linkLabel} />
-      </div>
-    </div>
-  );
-}
-
-type PeekCardProps = {
-  src: string;
-  alt: string;
-  label: string;
-  objectPosition: string;
-};
-
-function PeekCard({ src, alt, label, objectPosition }: PeekCardProps) {
-  return (
-    <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white ${softShadow}`}>
-      <div className="relative h-32 sm:h-40 lg:h-44">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(min-width: 768px) 30vw, 45vw"
-          className="object-cover"
-          style={{ objectPosition }}
-        />
-      </div>
-      <p className="px-4 py-3 text-center text-sm font-semibold text-navy">{label}</p>
-    </div>
-  );
-}
-
-function ExploreBar() {
-  return (
-    <div
-      className={`flex h-full flex-col items-center justify-center gap-4 rounded-[28px] bg-navy px-6 py-7 text-center ${softShadow}`}
-    >
-      <p className="text-lg font-bold tracking-[-0.01em] text-white sm:text-xl">Explore FurryFix</p>
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        {featuredAmazonUrl && (
-          <a
-            href={featuredAmazonUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${pill} bg-turquoise text-white hover:bg-turquoise-hover ${focusRing}`}
-          >
-            Shop on Amazon
-            <span className="sr-only"> (opens in a new tab)</span>
-            <ArrowIcon />
-          </a>
-        )}
-        <a
-          href={exploreHref}
-          className={`${pill} bg-white text-navy hover:bg-off-white ${focusRing}`}
+    <li className={`relative flex shrink-0 flex-col items-center ${dog.slot}`}>
+      <span
+        className={`relative z-30 ${dog.labelLift} ${float}`}
+        style={{ animationDelay: `${index * 0.8}s` }}
+      >
+        <span
+          className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-turquoise/25 bg-white/95 px-2 py-1 text-[0.66rem] font-semibold leading-none text-navy shadow-[0_6px_18px_color-mix(in_srgb,var(--color-navy)_10%,transparent)] sm:px-3 sm:py-1.5 sm:text-xs lg:text-[0.8rem] ${rise} motion-safe:[animation-delay:0.6s]`}
         >
-          Explore Products
-          <ArrowIcon />
-        </a>
-      </div>
-    </div>
+          <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-turquoise" />
+          {dog.label}
+        </span>
+      </span>
+      <Image
+        src={dog.src}
+        alt={dog.alt}
+        width={dog.width}
+        height={dog.height}
+        preload={index === 2}
+        sizes="(min-width: 1120px) 260px, 24vw"
+        className={`relative ${dog.layer} block h-auto w-full select-none ${rise} ${dog.delay}`}
+        draggable={false}
+      />
+    </li>
   );
 }
 
 export default function HeroSection() {
   return (
-    <section aria-labelledby="hero-heading" className="w-full overflow-hidden bg-pale-turquoise">
-      <div className={`relative mx-auto max-w-[1280px] px-5 pb-10 pt-10 sm:px-8 lg:px-10 lg:pt-12 ${fadeIn}`}>
-        <div className="relative z-10 mx-auto max-w-[760px] text-center">
+    <section
+      aria-labelledby="hero-heading"
+      className="relative w-full overflow-hidden bg-white"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-[radial-gradient(ellipse_55%_70%_at_50%_100%,var(--color-aqua),transparent_70%)]"
+      />
+
+      <div className="relative mx-auto max-w-[1280px] px-5 pt-12 sm:px-8 lg:pt-16">
+        <div className={`mx-auto max-w-[720px] text-center ${rise}`}>
+          <p className="inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-navy sm:text-xs">
+            <span aria-hidden="true" className="h-px w-6 bg-turquoise" />
+            A Little Love Goes a Long Way
+            <span aria-hidden="true" className="h-px w-6 bg-turquoise" />
+          </p>
           <h1
             id="hero-heading"
-            className="text-[2.6rem] font-extrabold leading-[1.02] tracking-[-0.045em] text-navy sm:text-[3.4rem] lg:text-[4.25rem]"
+            className="mt-4 text-[2.35rem] font-extrabold leading-[1.05] tracking-[-0.04em] text-navy sm:text-[3.25rem] lg:text-[3.9rem]"
           >
-            <span className="block">Better Care</span>
-            <span className="block">For Every Pet</span>
+            Make Every Bath a <span className="text-turquoise-hover">Happy</span> Moment!
           </h1>
-          <p className="mx-auto mt-4 max-w-[46ch] text-[0.95rem] leading-7 text-body">
-            Thoughtful grooming and care essentials designed to make everyday moments happier.
+          <p className="mx-auto mt-4 max-w-[44ch] text-[0.98rem] leading-7 text-body sm:text-[1.05rem]">
+            Turn everyday bathing into a moment of love, care, and happiness with FurryFix.
           </p>
-        </div>
-
-        <div className="relative mt-8 xl:-mt-24">
-          <div className="relative mx-auto aspect-[5/6] w-full max-w-[320px] overflow-hidden rounded-t-full border-[6px] border-b-0 border-white bg-navy sm:max-w-[380px] lg:max-w-[420px] xl:mt-28">
-            <Image
-              src="/hero/golden-retriever.jpg"
-              alt="A golden retriever looking straight at the camera with a happy open-mouth smile"
-              fill
-              preload
-              sizes="(min-width: 1024px) 420px, (min-width: 640px) 380px, 320px"
-              className="object-cover object-[50%_30%]"
-            />
-          </div>
-
-          <div className="mx-auto mt-6 grid max-w-[560px] grid-cols-2 gap-4 xl:contents">
-            <SideCard
-              src="/hero/dog-card.jpg"
-              alt="A small tan and white dog with folded ears looking at the camera"
-              label="Everyday care"
-              linkLabel="Explore FurryFix products"
-              className={`xl:absolute xl:-top-12 xl:left-6 xl:w-[230px] ${float}`}
-            />
-            <SideCard
-              src="/hero/cat-tabby.jpg"
-              alt="A tabby cat sitting on light stairs looking at the camera"
-              label="Happy companions"
-              linkLabel="See products for your pet"
-              className={`xl:absolute xl:right-6 xl:top-12 xl:w-[230px] ${float} motion-safe:[animation-delay:1.2s]`}
-            />
-          </div>
-        </div>
-
-        <div className="relative z-10 mt-6 grid grid-cols-2 gap-4 md:grid-cols-[1fr_1.2fr_1fr] md:items-stretch lg:-mt-16 lg:gap-6">
-          <div className="col-span-2 md:order-2 md:col-span-1">
-            <ExploreBar />
-          </div>
-          <div className="md:order-1">
-            <PeekCard
-              src="/hero/dog-peek.jpg"
-              alt="A Cavalier King Charles spaniel puppy peeking over a soft white blanket"
-              label="Made for everyday moments"
-              objectPosition="50% 82%"
-            />
-          </div>
-          <div className="md:order-3">
-            <PeekCard
-              src="/hero/cat-companion.jpg"
-              alt="A black and white cat resting its paws on a ledge and peeking at the camera"
-              label="Happy pets"
-              objectPosition="50% 40%"
-            />
-          </div>
+          <a
+            href={exploreHref}
+            className={`mt-7 inline-flex h-12 min-w-[44px] items-center justify-center gap-2 rounded-full bg-navy px-7 text-[0.95rem] font-semibold text-white transition-colors duration-200 hover:bg-turquoise hover:text-navy ${focusRing}`}
+          >
+            Explore Our Products
+            <ArrowIcon />
+          </a>
         </div>
       </div>
+
+      <ul className="relative mx-auto mt-8 flex max-w-[1120px] items-end justify-center px-3 sm:mt-10 sm:px-8 lg:mt-6">
+        {dogs.map((dog, index) => (
+          <DogColumn key={dog.src} dog={dog} index={index} />
+        ))}
+      </ul>
     </section>
   );
 }

@@ -10,6 +10,12 @@ export type Product = {
   amazonUrl: string | null;
   /** Candidate files under /public, first existing one wins. Empty means no official image yet. */
   images: readonly string[];
+  /** Official gallery files under /public for the product page, shown as-is in this order. */
+  gallery?: readonly string[];
+  /** Official ingredient list, shown verbatim on the product page. Launched products only. */
+  ingredients?: string;
+  /** Folder under /public holding A+ content images, shown in filename order on the product page. */
+  aPlusDir?: string;
   featured?: boolean;
 };
 
@@ -30,6 +36,18 @@ export const products: readonly Product[] = [
       "hero/shampoo-bottle.png",
       "hero/shampoo-bottle.webp",
     ],
+    gallery: [
+      "products/Shed Control/01.png",
+      "products/Shed Control/02.png",
+      "products/Shed Control/03.png",
+      "products/Shed Control/04.png",
+      "products/Shed Control/05.png",
+      "products/Shed Control/06.png",
+      "products/Shed Control/07.png",
+    ],
+    ingredients:
+      "Purified Water, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Glycerin, Polyquaternium-7, Aloe Barbadensis Leaf Extract, Avena Sativa (Oat) Kernel Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Calendula Extract, Chamomilla Recutita (Matricaria) Flower Extract, Centella Asiatica Extract, Tetrasodium EDTA, Phenoxyethanol (and) Ethylhexylglycerin, Parfum, Sodium Chloride, Citric Acid, CI 42090.",
+    aPlusDir: "products/Shed Control/a-plus",
     featured: true,
   },
   // Upcoming products show the placeholder until official packaging is dropped into public/products.
@@ -60,6 +78,15 @@ export const products: readonly Product[] = [
 ];
 
 export const featuredProduct: Product = products.find((product) => product.featured) ?? products[0];
+
+/** Only launched products get a product page. */
+export const launchedProducts: readonly Product[] = products.filter(
+  (product) => product.status === "available",
+);
+
+export function productHref(product: Product): string | null {
+  return product.status === "available" ? `/products/${product.slug}` : null;
+}
 
 const amazonHost = /(^|\.)amazon\.[a-z.]+$/i;
 const amazonShortHost = /^(amzn\.to|amzn\.in|amzn\.eu)$/i;
