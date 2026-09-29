@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AmazonButton from "@/components/layout/AmazonButton";
+import AmazonPrice from "@/components/product/AmazonPrice";
 import APlusContent from "@/components/product/APlusContent";
 import AmazonReviews from "@/components/product/AmazonReviews";
 import IngredientList from "@/components/product/IngredientList";
@@ -80,6 +81,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               </h1>
 
               <p className="mt-4 text-lg font-semibold text-body">{product.size}</p>
+
+              <AmazonPrice slug={product.slug} amazonUrl={amazonUrl} />
 
               <div className="mt-8 border-t border-navy/10 pt-8">
                 <AmazonButton url={amazonUrl} productName={product.name} className="w-full sm:w-auto sm:min-w-64" />
