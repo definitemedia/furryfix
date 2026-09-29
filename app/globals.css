@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ebe6f6;
+  --foreground: #16365c;
+  --navy: #16365c;
+  --muted: #3e5568;
+  --turquoise: #0c7a70;
+  --coral: #e24b4b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-navy: var(--navy);
+  --color-muted: var(--muted);
+  --color-turquoise: var(--turquoise);
+  --color-coral: var(--coral);
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.hero-surface {
+  background-color: #ebe6f6;
+  background-image:
+    radial-gradient(ellipse 48% 58% at 84% 40%, rgba(186, 228, 224, 0.72), transparent 68%),
+    radial-gradient(ellipse 36% 42% at 6% 92%, rgba(214, 198, 236, 0.5), transparent 72%),
+    linear-gradient(165deg, #f4f0fb 0%, #e8e3f6 46%, #e3f3f1 100%);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-float {
+  animation: hero-float 6.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-float {
+    animation: none;
+  }
 }
