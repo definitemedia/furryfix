@@ -9,7 +9,7 @@ export function publicAsset(candidates: readonly string[]): string | null {
   for (const candidate of candidates) {
     const filePath = path.join(process.cwd(), "public", candidate);
     if (fs.existsSync(filePath)) {
-      return `/${candidate}`;
+      return encodeURI(`/${candidate}`);
     }
   }
 
@@ -23,6 +23,7 @@ export const logoSrc = publicAsset([
   "brand/logo.svg",
   "brand/logo.png",
   "brand/logo.webp",
+  "brand/FurryFix Logo.png",
 ]);
 
 export const bottleSrc = publicAsset([
