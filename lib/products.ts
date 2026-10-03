@@ -19,14 +19,44 @@ export type Product = {
   featured?: boolean;
 };
 
+const amazonHost = /(^|\.)amazon\.[a-z.]+$/i;
+const amazonShortHost = /^(amzn\.to|amzn\.in|amzn\.eu)$/i;
+const productPath = /\/(dp|gp\/product)\/[A-Z0-9]{10}(?=[/?]|$)/i;
+
+/** True only for real product listings, never for search (/s?k=) or placeholder links. */
+export function isAmazonProductUrl(url: string | null | undefined): url is string {
+  if (!url) return false;
+
+  try {
+    const { hostname, pathname, protocol } = new URL(url);
+    if (protocol !== "https:") return false;
+    if (amazonShortHost.test(hostname)) return pathname.length > 1;
+    return amazonHost.test(hostname) && productPath.test(pathname);
+  } catch {
+    return false;
+  }
+}
+
+/** Known Shed Control listing. Used when NEXT_PUBLIC_AMAZON_PRODUCT_URL is missing or not a product URL. */
+const featuredAmazonListingUrl =
+  "https://www.amazon.in/Furryfix-Conditioner-Moisturizing-Anti-Hair-Fragrance/dp/B0DHLFZJT8/?th=1";
+
+/**
+ * Prefer a valid env product link (/dp/, /gp/product/, or amzn short link).
+ * Otherwise use the known FurryFix listing so a build without .env.local still has a button.
+ */
+export function resolveFeaturedAmazonUrl(candidate?: string | null): string | null {
+  if (isAmazonProductUrl(candidate)) return candidate;
+  return isAmazonProductUrl(featuredAmazonListingUrl) ? featuredAmazonListingUrl : null;
+}
+
 export const products: readonly Product[] = [
   {
     slug: "shed-control-shampoo",
     name: "FurryFix Shed Control 2-in-1 Conditioning Shampoo",
     size: "300 mL",
     status: "available",
-    // Set NEXT_PUBLIC_AMAZON_PRODUCT_URL to the real /dp/ listing. Until then the Buy button stays disabled.
-    amazonUrl: process.env.NEXT_PUBLIC_AMAZON_PRODUCT_URL || null,
+    amazonUrl: resolveFeaturedAmazonUrl(process.env.NEXT_PUBLIC_AMAZON_PRODUCT_URL),
     images: [
       "products/Shed Control/01.png",
       "products/shed-control-shampoo.png",
@@ -86,24 +116,6 @@ export const launchedProducts: readonly Product[] = products.filter(
 
 export function productHref(product: Product): string | null {
   return product.status === "available" ? `/products/${product.slug}` : null;
-}
-
-const amazonHost = /(^|\.)amazon\.[a-z.]+$/i;
-const amazonShortHost = /^(amzn\.to|amzn\.in|amzn\.eu)$/i;
-const productPath = /\/(dp|gp\/product)\/[A-Z0-9]{10}(?=[/?]|$)/i;
-
-/** True only for real product listings, never for search (/s?k=) or placeholder links. */
-export function isAmazonProductUrl(url: string | null | undefined): url is string {
-  if (!url) return false;
-
-  try {
-    const { hostname, pathname, protocol } = new URL(url);
-    if (protocol !== "https:") return false;
-    if (amazonShortHost.test(hostname)) return pathname.length > 1;
-    return amazonHost.test(hostname) && productPath.test(pathname);
-  } catch {
-    return false;
-  }
 }
 
 export const featuredAmazonUrl: string | null = isAmazonProductUrl(featuredProduct.amazonUrl)
