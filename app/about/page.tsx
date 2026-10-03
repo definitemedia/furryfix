@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import AboutClosing from "@/components/about/AboutClosing";
 import AboutCollage from "@/components/about/AboutCollage";
 import AboutPetCards from "@/components/about/AboutPetCards";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us | FurryFix",
+export const metadata = pageMetadata({
+  title: "About FurryFix | Thoughtful Care for Furry Friends",
   description:
-    "Meet FurryFix, a pet-care brand inspired by the bond between pets and their families. Discover our story, our philosophy, and the thoughtful care behind everything we do.",
-};
+    "Meet FurryFix, a pet-care brand inspired by the bond between pets and their families. Every furry friend deserves thoughtful care, comfort, and happiness.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

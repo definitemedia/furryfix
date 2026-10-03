@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import FinalMessage from "@/components/why-furryfix/FinalMessage";
 import OurApproach from "@/components/why-furryfix/OurApproach";
 import WhyHero from "@/components/why-furryfix/WhyHero";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Why FurryFix? | FurryFix",
+export const metadata = pageMetadata({
+  title: "Why FurryFix | Everyday Pet Care with Love",
   description:
-    "The love behind FurryFix: why we care about everyday pet care, the bond between pets and their people, and the thoughtful products we create for your furry friend.",
-};
+    "FurryFix makes everyday pet care a little easier and happier, with thoughtful products for the bond between pets and their people.",
+  path: "/why-furryfix",
+});
 
 export default function WhyFurryFixPage() {
   return (

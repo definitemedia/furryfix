@@ -12,6 +12,7 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Why FurryFix", href: "/why-furryfix" },
+  { label: "Blog", href: "/blog" },
   { label: "Products", href: productHref },
 ] as const;
 
@@ -94,7 +95,13 @@ export default function Footer() {
                 <span className="block w-fit rounded-lg bg-[#FFFFFF] px-4 py-2">
                   {/* The official logo must keep its intrinsic ratio. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={logoSrc} alt="FurryFix" className="block h-auto w-[170px] max-w-full object-contain" />
+                  <img
+                    src={logoSrc}
+                    alt="FurryFix"
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-auto w-[170px] max-w-full object-contain"
+                  />
                 </span>
               </Link>
             ) : (

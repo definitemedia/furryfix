@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Disclaimer | FurryFix",
   description:
     "This Disclaimer explains the limits of the general information, product details, and third-party links published on the FurryFix website.",
-};
+  path: "/disclaimer",
+});
 
 const email = "care@neurishfuturekind.com";
 

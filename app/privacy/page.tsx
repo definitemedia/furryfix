@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy Policy | FurryFix",
   description:
     "This Privacy Policy explains how FurryFix collects, uses, stores, and protects information when you visit our website.",
-};
+  path: "/privacy",
+});
 
 const email = "care@neurishfuturekind.com";
 

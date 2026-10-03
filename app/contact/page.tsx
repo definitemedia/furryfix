@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import ClosingMessage from "@/components/contact/ClosingMessage";
 import ContactHero from "@/components/contact/ContactHero";
 import QuickHelp from "@/components/contact/QuickHelp";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Us | FurryFix",
+export const metadata = pageMetadata({
+  title: "Contact FurryFix | Pet Care & Support",
   description:
-    "Questions, feedback, or just want to say hello? Email the FurryFix team at care@neurishfuturekind.com.",
-};
+    "Have a question about FurryFix? Email care@neurishfuturekind.com for product information, feedback, or a hello.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

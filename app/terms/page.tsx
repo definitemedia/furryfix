@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Terms & Conditions | FurryFix",
   description:
     "These Terms & Conditions govern your access to and use of the FurryFix website, owned and operated by NEURISH FUTURE KIND INDIA PRIVATE LIMITED.",
-};
+  path: "/terms",
+});
 
 const email = "care@neurishfuturekind.com";
 

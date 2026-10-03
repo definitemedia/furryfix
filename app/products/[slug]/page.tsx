@@ -7,9 +7,11 @@ import APlusContent from "@/components/product/APlusContent";
 import AmazonReviews from "@/components/product/AmazonReviews";
 import IngredientList from "@/components/product/IngredientList";
 import ProductGallery from "@/components/product/ProductGallery";
+import JsonLd from "@/components/seo/JsonLd";
 import { publicAsset } from "@/lib/brand-assets";
 import { isAmazonProductUrl, launchedProducts } from "@/lib/products";
 import { amazonReviewSectionUrls, getAmazonReviews } from "@/lib/reviews";
+import { breadcrumbJsonLd, pageMetadata, productJsonLd, withJsonLdContext } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -25,10 +27,11 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   const product = findLaunchedProduct((await params).slug);
   if (!product) return {};
 
-  return {
+  return pageMetadata({
     title: `${product.name} | FurryFix`,
-    description: `${product.name}, ${product.size}. Available now on Amazon.`,
-  };
+    description: `${product.name}, ${product.size}. Everyday grooming care from FurryFix, available on Amazon.`,
+    path: `/products/${product.slug}`,
+  });
 }
 
 export default async function ProductPage({ params }: PageProps<"/products/[slug]">) {
@@ -41,9 +44,24 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
     .filter((src): src is string => src !== null);
   const label = `${product.name}, ${product.size}`;
   const reviewsUrl = amazonReviewSectionUrls[product.slug];
+  const productPath = `/products/${product.slug}`;
 
   return (
     <main className="flex-1 overflow-x-clip">
+      <JsonLd
+        data={withJsonLdContext([
+          productJsonLd({
+            name: product.name,
+            size: product.size,
+            path: productPath,
+            images: gallery,
+          }),
+          breadcrumbJsonLd([
+            { name: "Shop", path: "/shop" },
+            { name: product.name, path: productPath },
+          ]),
+        ])}
+      />
       <section className="hero-surface">
         <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-8 sm:px-8 sm:pb-20 sm:pt-10 lg:pb-28">
           <nav aria-label="Breadcrumb" className="text-sm font-medium text-secondary">
@@ -89,10 +107,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 {!amazonUrl ? (
                   <p className="mt-2 text-center text-sm text-secondary sm:pl-6 sm:text-left">Amazon link not added yet</p>
                 ) : null}
-
-                <p className="mt-6 max-w-md text-base leading-7 text-body">
-                  Purchases are completed on Amazon. This site has no cart or checkout.
-                </p>
               </div>
             </div>
           </div>

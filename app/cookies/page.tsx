@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Cookie Policy | FurryFix",
   description:
     "This Cookie Policy explains how FurryFix uses cookies and similar technologies on its website and how you can manage your preferences.",
-};
+  path: "/cookies",
+});
 
 const email = "care@neurishfuturekind.com";
 

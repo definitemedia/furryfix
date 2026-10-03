@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import ShopClosing from "@/components/shop/ShopClosing";
 import ShopHero from "@/components/shop/ShopHero";
 import ShopProductGrid from "@/components/shop/ShopProductGrid";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Shop | FurryFix",
+export const metadata = pageMetadata({
+  title: "Shop FurryFix | Everyday Pet Care Products",
   description:
-    "Browse the FurryFix pet-care range. Available products are purchased on Amazon; more products are coming soon.",
-};
+    "Explore the FurryFix range. Available products are purchased on Amazon, and more pet-care products are coming soon.",
+  path: "/shop",
+});
 
 export default function ShopPage() {
   return (
